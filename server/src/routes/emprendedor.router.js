@@ -1,17 +1,22 @@
 import { Router } from 'express';
-import { 
+import {
     createEmprendedor,
     getEmprendedorId,
     getEmprendedorMailPass,
     updateEmprendedor,
-    logoutEmprendedor
+    logoutEmprendedor,
+    viewImgEmprendedor,
 } from '../controllers/emprendedor.controller';
 import { verifyToken } from '../lib/VerifyToken';
+import { upload } from '../lib/ImageMulter';
 
 const router = Router();
 
 // Crear emprendedor 
-router.post('/create', createEmprendedor);
+router.post('/create', upload.single('img'), createEmprendedor);
+
+// Ver imagen de emprendedor 
+router.get('/imagen/:id', viewImgEmprendedor);
 
 // Consultar emprendedor por Id 
 router.get('/find/:id', verifyToken, getEmprendedorId);
