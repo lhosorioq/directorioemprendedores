@@ -6,11 +6,7 @@ const emprendedorSchema = new Schema({
     mail: { type: String, required: true, max: 40 },
     password: { type: String, required: true, max: 40, select: false },
     ciudad: { type: String, required: true, max: 40 },
-<<<<<<< HEAD
-    departamento: { type: String, required: true, max: 40 },
-=======
     departamento: { type: String, required: true, max:40},
->>>>>>> main
     direccion: { type: String, required: true, max: 40 },
     telefono: { type: String, required: true, max: 40 },
     actividad: { type: String, required: true, max: 40 },
