@@ -5,7 +5,10 @@ import { Col, Row } from 'react-bootstrap';
 function HeaderComp() {
     return (
         <>
-            <header className="bg-dark text-white" style={{ height: '200px' }}>
+            <header
+                className="bg-dark text-white mb-4 shadow p-3 mb-5"
+                style={{ height: '200px' }}
+            >
                 <div className="container">
                     <Row className="justify-content-md-center">
                         <Col xs={12} md={2}>
