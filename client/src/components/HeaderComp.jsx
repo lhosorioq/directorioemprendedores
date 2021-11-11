@@ -12,8 +12,8 @@ function HeaderComp() {
                             <img
                                 className="float-end"
                                 src={logo}
-                                width="100"
-                                height="80"
+                                width="200"
+                                height="140"
                                 alt="logo"
                             />
                         </Col>
