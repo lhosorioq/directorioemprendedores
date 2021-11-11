@@ -4,7 +4,7 @@ export default class SobreComp extends Component {
     render() {
         return (
             <div>
-                <j1>sobre</j1>
+                <h1>sobre</h1>
             </div>
         )
     }
