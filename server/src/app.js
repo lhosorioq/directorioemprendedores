@@ -4,7 +4,7 @@ import cors from 'cors';
 import config from './config';
 import emprendedorRoutes from './routes/emprendedor.router';
 import adminRoutes from './routes/administrador.router';
-import userRoutes from './routes/usuarios.router';
+import userRoutes from './routes/usuarios.router'
 
 const app = express();
 
