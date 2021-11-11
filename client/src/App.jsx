@@ -1,14 +1,14 @@
 import NavbarComp from './components/NavbarComp';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
     return (
         <Router>
             <NavbarComp />
-            <Routes>
+            <Switch>
                 <Route path="/"></Route>
-            </Routes>
+            </Switch>
         </Router>
     );
 }

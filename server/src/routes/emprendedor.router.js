@@ -6,20 +6,25 @@ import {
     updateEmprendedor,
     logoutEmprendedor,
     viewImgEmprendedor,
+    getEmprededoresAll,
 } from '../controllers/emprendedor.controller';
 import { verifyToken } from '../lib/VerifyToken';
+
 import { upload } from '../lib/ImageMulter';
 
 const router = Router();
 
-// Crear emprendedor 
+// Crear emprendedor
 router.post('/create', upload.single('img'), createEmprendedor);
+
+// Consultar emprendedor por Id
+router.get('/find/:id', verifyToken, getEmprendedorId);
 
 // Ver imagen de emprendedor 
 router.get('/imagen/:id', viewImgEmprendedor);
 
-// Consultar emprendedor por Id 
-router.get('/find/:id', verifyToken, getEmprendedorId);
+// Consultar todos los emprendedores
+router.get('/all', getEmprededoresAll);
 
 // Consultar emprendedor por mail y password para login
 router.post('/login', getEmprendedorMailPass);

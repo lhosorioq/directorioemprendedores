@@ -10,6 +10,8 @@ export const createEmprendedor = async (req, res) => {
             mail,
             password,
             direccion,
+            ciudad,
+            departamento,
             telefono,
             actividad,
             msg_description,
@@ -24,6 +26,8 @@ export const createEmprendedor = async (req, res) => {
             mail,
             password,
             direccion,
+            ciudad,
+            departamento,
             telefono,
             actividad,
             msg_description,
@@ -78,9 +82,12 @@ export const getEmprendedorId = async (req, res) => {
 
 // Consulta base de datos por email y password
 export const getEmprendedorMailPass = async (req, res) => {
-    const emprendedor = await Emprendedor.findOne({
-        email: req.body.email,
-    }).select('+password');
+    const emprendedor = await Emprendedor.findOne(
+        {
+            email: req.body.email,
+        },
+        { img: 0 }
+    ).select('+password');
 
     // Verifico si no se encontro el email em base de datos
     if (!emprendedor) {
@@ -163,6 +170,8 @@ export const updateEmprendedor = async (req, res) => {
         nombre: emprendedor.nombre,
         mail: emprendedor.mail,
         password: emprendedor.password,
+        ciudad: emprendedor.ciudad,
+        departamento: emprendedor.departamento,
         direccion: emprendedor.direccion,
         telefono: emprendedor.telefono,
         actividad: emprendedor.actividad,
@@ -182,6 +191,21 @@ export const updateEmprendedor = async (req, res) => {
         return res.status(400).json({
             mensaje: 'Ocurrio un error',
             err,
+        });
+    }
+};
+
+// Consultar todos los emprendedores
+export const getEmprededoresAll = async (req, res) => {
+    try {
+        const emprendedores = await Emprendedor.find({}, { img: 0 });
+        res.status(200).json({
+            emprendedores,
+        });
+    } catch (error) {
+        return res.status(400).json({
+            mensaje: 'Ocurrio un error',
+            error,
         });
     }
 };

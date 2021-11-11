@@ -10,7 +10,7 @@ class NavbarComp extends Component {
             <>
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                     <Container>
-                        <Navbar.Brand>
+                        <Navbar.Brand href="#home">
                             <img src={logo} width="100" height="80" />
                             Directorio de Emprendedores
                         </Navbar.Brand>
