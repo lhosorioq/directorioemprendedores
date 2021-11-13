@@ -11,20 +11,18 @@ function HomeView(props) {
     });
 
     const loadEmprendedores = () => {
-        if (!emprendedores) {
-            setEmprendedores(data);
-        }
+        setEmprendedores(data);
     };
 
     if (emprendedores) {
         return (
             <Container className="mt-4">
-                <Row xs={1} md={3} className="g-4">
+                <Row className="g-4">
                     {emprendedores.map((emprendedor, i) => {
                         return (
-                            <Col key={emprendedor._id}>
+                            <Col className="mt-2" key={emprendedor._id}>
                                 <Card
-                                    style={{ width: '23rem' }}
+                                    style={{ width: '20rem' }}
                                     className="mb-4 shadow p-3 mb-5 bg-white rounded"
                                 >
                                     <Card.Img
@@ -76,7 +74,11 @@ function HomeView(props) {
             </Container>
         );
     }
-    return <></>;
+    return (
+        <div className="container" style={{ height: '500px' }}>
+            <h1>No hay resultados de Busqueda</h1>
+        </div>
+    );
 }
 
 HomeView.propTypes = {};

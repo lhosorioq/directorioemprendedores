@@ -20,7 +20,7 @@ export default function NavbarComp() {
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto">
+                        <Nav className="m-auto">
                             <Nav.Link as={Link} to={'/'}>
                                 Home
                             </Nav.Link>
