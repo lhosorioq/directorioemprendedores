@@ -5,9 +5,13 @@ import { ProgressBar } from 'react-bootstrap';
 import HeaderComp from '../components/HeaderComp';
 import FooterComp from '../components/FooterComp';
 import SearchComp from '../components/SearchComp';
+import CarouselComp from '../components/CarouselComp';
 
 function HomeView() {
     const [emprendedores, setEmprendedores] = useState(null);
+
+    const [imagenes, setImagenes] = useState(null);
+
     const loadEmprendedores = async (param) => {
         await Axios.post('/user/filter/', param)
             .then((response) => {
@@ -29,6 +33,9 @@ function HomeView() {
                         responseType: 'json',
                     });
                     setEmprendedores(response.data.emprendedores);
+
+                    setImagenes(imagenes ?? response.data.emprendedores);
+
                     return emprendedores;
                 } catch (error) {
                     console.log(error);
@@ -38,10 +45,10 @@ function HomeView() {
         getEmprendedores();
     });
 
-    if (emprendedores) {
+    if (emprendedores && imagenes) {
         return (
             <>
-                <HeaderComp />
+                <CarouselComp data={imagenes} />
                 <SearchComp
                     loadEmprendedores={(item) => loadEmprendedores(item)}
                 />

@@ -37,7 +37,7 @@ function SearchComp(props) {
         setCiudad(Ciudades[await Departamentos.indexOf(departamento)][0]);
         console.log(actividad, departamento, ciudad);
     };
-    
+
     // Creacion de options para selects
     const options = (item, i) => (
         <option key={i} value={item}>
@@ -51,7 +51,8 @@ function SearchComp(props) {
                 expand="lg"
                 bg="dark"
                 variant="dark"
-                sticky=""
+                sticky="top"
+                style={{top: '105px'}}
             >
                 <Container>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
