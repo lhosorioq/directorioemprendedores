@@ -4,9 +4,20 @@ import CardsComp from '../components/CardsComp';
 import { ProgressBar } from 'react-bootstrap';
 import HeaderComp from '../components/HeaderComp';
 import FooterComp from '../components/FooterComp';
+import SearchComp from '../components/SearchComp';
 
-function HomeView(props) {
+function HomeView() {
     const [emprendedores, setEmprendedores] = useState(null);
+    const loadEmprendedores = async (param) => {
+        await Axios.post('/user/filter/', param)
+            .then((response) => {
+                setEmprendedores(response.data.emprendedores);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        return emprendedores;
+    };
 
     useEffect(() => {
         async function getEmprendedores() {
@@ -14,7 +25,7 @@ function HomeView(props) {
                 try {
                     const response = await Axios({
                         method: 'get',
-                        url: `/user/`,
+                        url: `/user/visible`,
                         responseType: 'json',
                     });
                     setEmprendedores(response.data.emprendedores);
@@ -31,7 +42,12 @@ function HomeView(props) {
         return (
             <>
                 <HeaderComp />
-                <CardsComp data={emprendedores} />
+                <SearchComp
+                    loadEmprendedores={(item) => loadEmprendedores(item)}
+                />
+                <div style={{ minHeight: '500px' }}>
+                    <CardsComp data={emprendedores} />
+                </div>
                 <FooterComp />
             </>
         );
@@ -39,7 +55,10 @@ function HomeView(props) {
     return (
         <>
             <HeaderComp />
-            <ProgressBar animated now={45} />
+            <SearchComp />
+            <div className="container" style={{ height: '500px' }}>
+                <ProgressBar animated now={45} />
+            </div>
             <FooterComp />
         </>
     );

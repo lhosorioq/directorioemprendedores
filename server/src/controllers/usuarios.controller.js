@@ -1,12 +1,12 @@
+import { json } from 'express';
 import Emprendedor from '../models/emprendedor.model';
-
 
 // Consultar todos los emprendedores
 export const getEmprededoresAll = async (req, res) => {
     try {
-        const emprendedores = await Emprendedor.find({},{img:0})
+        const emprendedores = await Emprendedor.find({}, { img: 0 });
         res.status(200).json({
-            emprendedores
+            emprendedores,
         });
     } catch (error) {
         return res.status(400).json({
@@ -14,7 +14,49 @@ export const getEmprededoresAll = async (req, res) => {
             error,
         });
     }
-}
+};
+
+// Consultar todos emprendedores visibles 
+export const getEmprededoresVisibles = async (req, res) => {
+    try {
+        const emprendedores = await Emprendedor.find({visible: true}, { img: 0 });
+        res.status(200).json({
+            emprendedores,
+        });
+    } catch (error) {
+        return res.status(400).json({
+            mensaje: 'Ocurrio un error',
+            error,
+        });
+    }
+};
+
+// Consultar Emprendedor por filtros de busqueda
+export const getEmprededoresFilter = async (req, res) => {
+    try {
+        const { actividad, departamento, ciudad, nombre } = req.body;
+        const emprendedores = await Emprendedor.find(
+            {
+                nombre: { $regex: '.*' + nombre + '.*', $options: 'si' },
+                actividad: { $regex: '.*' + actividad + '.*', $options: 'si' },
+                departamento: {
+                    $regex: '.*' + departamento + '.*',
+                    $options: 'si',
+                },
+                ciudad: { $regex: '.*' + ciudad + '.*', $options: 'si' },
+            },
+            { img: 0 }
+        );
+        res.status(200).json({
+            emprendedores,
+        });
+    } catch (error) {
+        return res.status(400).json({
+            mensaje: 'Ocurrio un error',
+            error,
+        });
+    }
+};
 
 // Ver imagen de emprendedor
 export const viewImgEmprendedor = async (req, res) => {
@@ -31,4 +73,3 @@ export const viewImgEmprendedor = async (req, res) => {
         });
     }
 };
-
