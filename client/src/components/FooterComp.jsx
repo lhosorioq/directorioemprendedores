@@ -35,7 +35,13 @@ function FooterComp() {
                     <Footer.Link href="https://twitter.com/" target="_blank" ><Icon className="fab fa-twitter" />Twitter</Footer.Link>
                     
                 </Footer.Column>
+                
             </Footer.Row>
+            <Footer.Il className="footer-copyright text-center py-3">
+        
+                &copy; {new Date().getFullYear()} Copyright: Proyecto de pagina web para ciclo 4 de MisionTic UTP
+        
+                </Footer.Il>
             </Footer.Wrapper>
         </Footer>
     );
