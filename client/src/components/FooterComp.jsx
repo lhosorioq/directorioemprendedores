@@ -1,5 +1,6 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function FooterComp() {
     return (
@@ -19,7 +20,22 @@ function FooterComp() {
                         <Col>
                             <h3>Contact Info</h3>
                         </Col>
-                        <Col></Col>
+                        <Col>
+                            <Nav className="m-auto">
+                                <Nav.Link as={Link} to={'/admin'}>
+                                    Admins
+                                </Nav.Link>
+                                <Nav.Link as={Link} to={'/conocenos'}>
+                                    Conócenos
+                                </Nav.Link>
+                                <Nav.Link as={Link} to={'/contacto'}>
+                                    Contacto
+                                </Nav.Link>
+                                <Nav.Link as={Link} to={'/about'}>
+                                    Sobre
+                                </Nav.Link>
+                            </Nav>
+                        </Col>
                     </Row>
                     <Row>
                         <Col></Col>

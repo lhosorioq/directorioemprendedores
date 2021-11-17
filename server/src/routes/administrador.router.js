@@ -21,7 +21,7 @@ router.post('/create', verifyToken, createAdmin);
 router.get('/find', verifyToken, getAdmin);
 
 // login de Administrador
-router.post('/login/:id', verifyToken, getAdminUserPass);
+router.post('/login', getAdminUserPass);
 
 // Busca Administrador por id
 router.get('/findid/:id', verifyToken, findAdminId);

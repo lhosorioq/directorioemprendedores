@@ -70,7 +70,7 @@ export const getEmprendedorId = async (req, res) => {
     const _id = req.params.id;
 
     try {
-        const register = await Emprendedor.findOne({ _id }).select('-password');
+        const register = await Emprendedor.findOne({ _id }, {img: 0}).select('-password');
         res.json(register);
     } catch (error) {
         return res.status(400).json({
@@ -84,14 +84,14 @@ export const getEmprendedorId = async (req, res) => {
 export const getEmprendedorMailPass = async (req, res) => {
     const emprendedor = await Emprendedor.findOne(
         {
-            email: req.body.email,
+            mail: req.body.mail,
         },
         { img: 0 }
     ).select('+password');
 
-    // Verifico si no se encontro el email em base de datos
+    // Verifico si no se encontro el email en base de datos
     if (!emprendedor) {
-        return res.status(404).json("The email does'nt exist");
+        return res.json({auth: false, mensaje:"Email no esta registrado"});
     }
 
     const validPassword = await emprendedor.comparePassword(
@@ -101,10 +101,10 @@ export const getEmprendedorMailPass = async (req, res) => {
 
     // Si la validacion de contraseñaes incorrecta
     if (!validPassword) {
-        return res.status(401).json({
+        return res.json({
             auth: false,
             token: null,
-            mensaje: 'Password incorrect',
+            mensaje: 'Contraseña incorrecta',
         });
     }
 
@@ -113,6 +113,7 @@ export const getEmprendedorMailPass = async (req, res) => {
     });
     res.status(200).json({
         auth: true,
+        mensaje: 'Bienvenido ' + emprendedor.nombre, 
         token,
         emprendedor,
     });

@@ -7,6 +7,11 @@ import Home from './views/HomeView';
 import Conocenos from './views/ConocenosComp';
 import Contacto from './views/ContactoComp';
 import Sobre from './views/SobreComp';
+import LoginAdminView from './views/LoginAdminView';
+import LoginEmprendedorView from './views/LoginEmprendedorView';
+import DataEmprendedorView from './views/DataEmprendedorView';
+import DataAdminView from './views/DataAdminView';
+import SignupComp from './components/SignupComp';
 
 function App() {
     return (
@@ -26,10 +31,22 @@ function App() {
                     <Sobre />
                 </Route>
                 <Route path="/login" exact>
-                    <Sobre />
+                    <LoginEmprendedorView />
+                </Route>
+                <Route path="/emprendedor" exact>
+                    <DataEmprendedorView />
                 </Route>
                 <Route path="/signup" exact>
                     <Sobre />
+                </Route>
+                <Route path="/admin" exact>
+                    <LoginAdminView />
+                </Route>
+                <Route path="/admin/data" exact>
+                    <DataAdminView />
+                </Route>
+                <Route path="/admin/data/signup" exact>
+                    <SignupComp tittle="signup"/>
                 </Route>
             </Switch>
         </Router>

@@ -6,17 +6,17 @@ import config from '../config';
 // Crear administrador
 export const createAdmin = async (req, res) => {
     try {
-        const { nombre, password } = req.body;
+        const { user, password } = req.body;
         const admin = new Admin({
-            nombre,
+            user,
             password,
         });
 
-        const name = await Admin.findOne({ nombre });
+        const name = await Admin.findOne({ user });
 
         if (name) {
             res.status(200).json({
-                mensaje: 'Ya existe una cuenta con este nombre de usuario',
+                mensaje: 'Ya existe una cuenta con este email de usuario',
             });
         } else {
             // Encryptar contraseña
@@ -51,7 +51,7 @@ export const getAdminUserPass = async (req, res) => {
 
     // Verifico si no se encontro el usuario en base de datos
     if (!admin) {
-        return res.status(404).json({ mensaje: 'No existe administrador' });
+        return res.json({ auth: false, mensaje: 'No existe administrador' });
     }
 
     const validPassword = await admin.comparePassword(
@@ -61,10 +61,10 @@ export const getAdminUserPass = async (req, res) => {
 
     // Si la validacion de contraseñaes incorrecta
     if (!validPassword) {
-        return res.status(401).json({
+        return res.json({
             auth: false,
             token: null,
-            mensaje: 'Password incorrect',
+            mensaje: 'Contraseña Incorrecta',
         });
     }
 
@@ -74,8 +74,8 @@ export const getAdminUserPass = async (req, res) => {
     res.status(200).json({
         auth: true,
         mensaje: 'Autenticacion correcta',
+        id: admin._id,
         token,
-        admin,
     });
 };
 
@@ -236,4 +236,3 @@ export const deleteEmprendedor = async (req, res) => {
         });
     } catch (error) {}
 };
-
