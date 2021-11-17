@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Axios from 'axios';
 import { Table, Button, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-import SignupComp from './SignupComp';
+import SignupComp from './UpdateEmprendedorComp';
 
 function TablaEmprendedoresComp() {
     const [emprendedores, setEmprendedores] = useState(null);
@@ -19,12 +19,12 @@ function TablaEmprendedoresComp() {
 
     const cabezeras = [
         'Nombre',
+        'Email',
         'Actividad',
         'Telefono',
         'Direccion',
         'Ciudad',
         'Departamento',
-        'Mensaje',
         'visible',
     ];
 
@@ -99,12 +99,12 @@ function TablaEmprendedoresComp() {
                                 <tr key={index}>
                                     <td>{index + 1} </td>
                                     <td> {emprendedor.nombre} </td>
+                                    <td> {emprendedor.mail} </td>
                                     <td>{emprendedor.actividad} </td>
                                     <td>{emprendedor.telefono} </td>
                                     <td>{emprendedor.direccion} </td>
                                     <td>{emprendedor.ciudad} </td>
                                     <td>{emprendedor.departamento} </td>
-                                    <td>{emprendedor.msg_description} </td>
                                     <td>{emprendedor.visible ? 'Si' : 'No'}</td>
                                     <td>
                                         <Button
@@ -153,24 +153,13 @@ function TablaEmprendedoresComp() {
                     </Modal.Footer>
                 </Modal>
                 {/* Editar */}
-                <Modal show={show2} onHide={handleClose}>
+                <Modal size="lg" show={show2} onHide={handleClose} style={{height: '600px'}} >
                     <Modal.Header closeButton>
                         <Modal.Title>Editar Emprendedor</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <SignupComp />
+                        <SignupComp item={usuarioEditar.current} />
                     </Modal.Body>
-                    <Modal.Footer>
-                        <Button
-                            variant="danger"
-                            onClick={() => deleteEmprendedor()}
-                        >
-                            Eliminar
-                        </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                            Cancelar
-                        </Button>
-                    </Modal.Footer>
                 </Modal>
             </>
         );

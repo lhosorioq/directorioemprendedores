@@ -26,7 +26,7 @@ function LoginComp(props) {
     return (
         <div>
             <Container
-                style={{ width: '300px', height: '400px', marginTop: '100px' }}
+                style={{ width: '300px', height: '400px', marginTop: '100px', marginBottom: '300px' }}
             >
                 <h1 style={{ textAlign: 'center' }}>{tittle}</h1>
                 <Formik
