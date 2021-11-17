@@ -1,32 +1,43 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import Footer from './FooterItem'
+import Icon from './Icons'
 
 function FooterComp() {
     return (
-        <>
-            <footer className="bg-dark text-white">
-                <div className="container">
-                    <Row>
-                        <Col>
-                            <h3>Directorio De Emprendedores</h3>
-                            <p>
-                                Lorem ipsum dolor sit, amet consectetur
-                                adipisicing elit. Corrupti totam molestias iste
-                                laudantium impedit, nulla dolorum. Quam sunt
-                                voluptatibus omnis?
-                            </p>
-                        </Col>
-                        <Col>
-                            <h3>Contact Info</h3>
-                        </Col>
-                        <Col></Col>
-                    </Row>
-                    <Row>
-                        <Col></Col>
-                    </Row>
-                </div>
-            </footer>
-        </>
+        <Footer>
+            <Footer.Wrapper>
+            <Footer.Row>
+                <Footer.Column>
+                <Footer.Title>Servicios</Footer.Title>
+                    <Footer.Il>Desarrollo web</Footer.Il>
+                    <Footer.Il>Tiendas en linea</Footer.Il>
+                    <Footer.Il>Mercado en linea</Footer.Il>
+                    <Footer.Il>Sitios web corporativos</Footer.Il>
+                    <Footer.Link href="#"><Icon className="fas fa-user-lock" />Admin</Footer.Link>
+                    
+                </Footer.Column>
+                <Footer.Column>
+                <Footer.Title>Quienes Somos</Footer.Title>
+                    <Footer.Il>Somos un grupo de desarrolladores que trabajamos codo a codo para hacer realidad tus proyectos e ideas</Footer.Il>
+                    
+                </Footer.Column>
+                <Footer.Column>
+                <Footer.Title>Contacto </Footer.Title>
+                    <Footer.Il><Icon className="fas fa-map-marked-alt" />Calle del desarrollo</Footer.Il>
+                    <Footer.Il><Icon className="fas fa-phone-alt" />+57 475-4785-2545</Footer.Il>
+                    <Footer.Il><Icon className="fas fa-envelope" />sueñosrealidad@call.com</Footer.Il>
+                    <Footer.Il><Icon className="fas fa-map-marker-alt" />Colombia</Footer.Il>
+                </Footer.Column>
+                <Footer.Column>
+                <Footer.Title>Social</Footer.Title>
+                    <Footer.Link href="https://www.facebook.com/" target="_blank" ><Icon className="fab fa-facebook-f" />Facebook</Footer.Link>
+                    <Footer.Link href="https://www.instagram.com/" target="_blank" ><Icon className="fab fa-instagram" />Instagram</Footer.Link>
+                    <Footer.Link href="https://twitter.com/" target="_blank" ><Icon className="fab fa-twitter" />Twitter</Footer.Link>
+                    
+                </Footer.Column>
+            </Footer.Row>
+            </Footer.Wrapper>
+        </Footer>
     );
 }
 

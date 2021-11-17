@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from './views/HomeView';
 import Conocenos from './views/ConocenosComp';
-import Contacto from './views/ContactoComp';
+import Contacto from './views/Contactoviews';
 import Sobre from './views/SobreComp';
 
 function App() {
