@@ -4,6 +4,7 @@ import NavbarComp from './components/NavbarComp';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from './views/HomeView';
+import Registro from './views/RegistroComp';
 import Conocenos from './views/ConocenosComp';
 import Contacto from './views/Contactoviews';
 import Sobre from './views/SobreComp';
@@ -20,6 +21,9 @@ function App() {
             <Switch>
                 <Route path="/" exact>
                     <Home />
+                </Route>
+                <Route path="/registro" exact>
+                    <Registro />
                 </Route>
                 <Route path="/conocenos" exact>
                     <Conocenos />
