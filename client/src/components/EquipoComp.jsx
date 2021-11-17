@@ -16,45 +16,44 @@ function EquipoComp() {
                 <Title title={'Equipo'} span={'Equipo'} />
                 <div className="equipos">
                     
-                        <TarjetaPerfil 
+                    <TarjetaPerfil 
+                        image={EstefaniM} 
+                        title={'Estefania Muñoz Gallego'} 
+                        subtitulo={'Developer'}
+                        paragraph={' Ingeniera Industrial.'}
+                        email={'Email: Estefamg@outlook.es'}
+                    />
+                    
+                    <TarjetaPerfil 
+                        image={PatriciaS} 
+                        title={'Maria Patricia Serna Lopez'} 
+                        subtitulo={'Developer'}
+                        paragraph={' Ingeniera en confecciones.'}
+                        email={'Email: mariapatriciasernalopez9@gmail.com'}
+                    />
+
+                    <TarjetaPerfil 
                         image={LuisHO} 
                         title={'Luis Humberto Osorio Quiceno'}
                         subtitulo={'Scrum Master'}
                         paragraph={'Ingeniero de Sistemas Programador de sistemas de información enfocado al desarrollo de aplicaciones web.'}
                         email={'Email: lhosorio@gmail.com'}
                     />  
-                        <TarjetaPerfil 
+                    <TarjetaPerfil 
                         image={HeynarS} 
                         title={'Heynar Soto Holguin'} 
                         subtitulo={'Product Owner'}
                         paragraph={' Diseño 3D. Me gusta el desarrollo web'}
                         email={'Email: heynar76@hotmail.com'}
                     />
-                        <TarjetaPerfil 
-                            image={JorgeL} 
-                            title={'Jorge Luis Velasquez Vanegas'} 
-                            subtitulo={'Developer'}
-                            paragraph={'Tecnólogo electrónico. Apasionado de la tecnología y el desarrollo de software..'}
-                            email={'Email: jorgeluisvelasquezv@gmail.com'}
-                        />
+                    <TarjetaPerfil 
+                        image={JorgeL} 
+                        title={'Jorge Luis Velasquez Vanegas'} 
+                        subtitulo={'Developer'}
+                        paragraph={'Tecnólogo electrónico. Apasionado de la tecnología y el desarrollo de software..'}
+                        email={'Email: jorgeluisvelasquezv@gmail.com'}
+                    />
                         
-                        <TarjetaPerfil 
-                            image={PatriciaS} 
-                            title={'Maria Patricia Serna Lopez'} 
-                            subtitulo={'Developer'}
-                            paragraph={' Ingeniera en confecciones.'}
-                            email={'Email: mariapatriciasernalopez9@gmail.com'}
-                        />
-                        
-                        <TarjetaPerfil 
-                            image={EstefaniM} 
-                            title={'Estefania Muñoz Gallego'} 
-                            subtitulo={'Developer'}
-                            paragraph={' Ingeniera Industrial.'}
-                            email={'Email: Estefamg@outlook.es'}
-                        />
-                    
-                    
                 </div>
             </EquipoStyled>
         </InnerLayout>

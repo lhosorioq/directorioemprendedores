@@ -24,6 +24,9 @@ export default function NavbarComp() {
                             <Nav.Link as={Link} to={'/'}>
                                 Home
                             </Nav.Link>
+                            <Nav.Link as={Link} to={'/registro'}>
+                                Registro
+                            </Nav.Link>
                             <Nav.Link as={Link} to={'/conocenos'}>
                                 Conócenos
                             </Nav.Link>
