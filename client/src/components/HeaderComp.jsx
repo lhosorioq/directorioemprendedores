@@ -21,10 +21,10 @@ function HeaderComp() {
                             />
                         </Col>
                         <Col xs={12} md={6}>
-                            <h1>
+                            <h2>
                                 Pon a volar tus sueños con el Directorio De
                                 Emprendedores
-                            </h1>
+                            </h2>
                         </Col>
                     </Row>
                 </div>

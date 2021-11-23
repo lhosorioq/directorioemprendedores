@@ -4,6 +4,12 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export default function NavbarComp() {
+
+    const salir = () => {
+        sessionStorage.clear();
+        window.location.href= '/'
+    };
+
     return (
         <>
             <Navbar
@@ -24,26 +30,28 @@ export default function NavbarComp() {
                             <Nav.Link as={Link} to={'/'}>
                                 Home
                             </Nav.Link>
-                            <Nav.Link as={Link} to={'/registro'}>
-                                Registro
-                            </Nav.Link>
                             <Nav.Link as={Link} to={'/conocenos'}>
                                 Conócenos
                             </Nav.Link>
                             <Nav.Link as={Link} to={'/contacto'}>
                                 Contacto
                             </Nav.Link>
-                            <Nav.Link as={Link} to={'/about'}>
-                                Sobre
-                            </Nav.Link>
+                            {sessionStorage.getItem('rol') ? <Nav.Link as={Link} to={'/admin/data'}>
+                                Administrador
+                            </Nav.Link> : null}
                         </Nav>
                         <Nav>
                             <Nav.Link as={Link} to={'/login'}>
                                 Login
                             </Nav.Link>
                             <Nav.Link as={Link} to={'/signup'}>
-                                Sing Up
+                                Registrate
                             </Nav.Link>
+                            {sessionStorage.getItem('token') ? (
+                                <Nav.Link as={Link} onClick={() => salir()} to={''}>
+                                    Salir
+                                </Nav.Link>
+                            ) : null}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

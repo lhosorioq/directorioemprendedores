@@ -13,7 +13,7 @@ function FooterComp() {
                     <Footer.Il>Tiendas en linea</Footer.Il>
                     <Footer.Il>Mercado en linea</Footer.Il>
                     <Footer.Il>Sitios web corporativos</Footer.Il>
-                    <Footer.Link href="#"><Icon className="fas fa-user-lock" />Admin</Footer.Link>
+                    <Footer.Link href="/admin"><Icon className="fas fa-user-lock" />Admin</Footer.Link>
                     
                 </Footer.Column>
                 <Footer.Column>

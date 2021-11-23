@@ -55,7 +55,6 @@ function HomeView() {
                 <div style={{ minHeight: '500px' }}>
                     <CardsComp data={emprendedores} />
                 </div>
-                <FooterComp />
             </>
         );
     }

@@ -4,6 +4,9 @@ export const Categorias = [
     'Restaurante',
     'Discoteca',
     'Comidas Rapidas',
+    'Turismo',
+    'Hoteles',
+    'Carnicerias'
 ];
 
 

@@ -14,8 +14,17 @@ function CarouselComp(props) {
 
     if (emprendedores) {
         return (
-            <div>
-                <Carousel>
+            <div
+                style={{
+                    // backgroundImage: `url("http://localhost:4000/user/618c21047cfe75bb20522163")`,
+                    backgroundColor: '#212529',
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+            >
+                <Carousel
+                    style={{ backgroundColor: 'darkslategrey', width: '50%' }}
+                >
                     {emprendedores.map((emprendedor, i) => {
                         if (emprendedor.visible) {
                             return (
