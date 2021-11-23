@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components';
 import imgconoc from '../assets/ImagenConocenos.jpg';
-import { Card } from 'react-bootstrap';
+import EsloganItem from '../components/EsloganItem'
+import {InnerLayout} from '../styles/Layouts'
 
 
 
@@ -13,32 +14,26 @@ function ImagConocenos() {
             </div>
             <div className="right-content">
             
-                <div center="center">
-                    <Card >
-                        <Card.Body className="card text center bg-light">
-                            
-                            <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
-                            <Card.Text className="text-center">
-                                
-                            <h6>Estamos aqui <br /> para sacar a <br /> relucir tu EMPRENDIMIENTO <br /> como profesional y <br /> como marca </h6> 
-                            </Card.Text>
-                            
-                            
-                            
-                        </Card.Body>
-                    </Card>
+                
+            <InnerLayout>
+                <div className="views">
+                    <EsloganItem 
+                        text={'Es la idea de cinco compañeros que desean apoyar a los emprendedores, y Estamos aqui para sacar a relucir tu EMPRENDIMIENTO como un profesional y como marca. Creo que todos nos destacamos de manera extraordinario en nuestro emprendimiento por que TODOS somo especiales. Sin embargo, '} />
+                    
+                    
                 </div>
-                <h6 className="paragraph">
-                    Creo que todos nos destacamos de manera 
-                    extraordinario en nuestro emprendimiento
-                    por que TODOS somo especiales.
-                    Sin embargo, el reto esta en dominar el 
+            </InnerLayout>
+                
+                <div className="about-info">
+                    <div className="info-title">
+                    <p>El reto esta en dominar el 
                     mercado y ser persuasivos para convencer 
                     de que somos unos genios en 
-                    nuestro campo. <br />
-                    Ese es mi trabajo y estoy deseando ayudarte.
+                    nuestro campo.
+                    Ese es mi trabajo y estoy deseando ayudarte.</p>
                     
-                </h6>
+                    </div>
+                </div>
                 
                 
             </div>
@@ -52,9 +47,11 @@ const ImageConoStyled = styled.div`
     display: flex;
     @media screen and (max-width:1000px){
         flex-direction: column;
-        
+        .left-content{
+            margin-bottom: 2rem;
+            }
         }
-    }
+    
     .left-content{
         width: 100%;
         img{
@@ -71,19 +68,25 @@ const ImageConoStyled = styled.div`
                 font-size: 2rem;
             }
         }
-        .Card.Text{
-            width: 100%;
-            h5{
-                font-size: 1.8rem;
-                color: var(--white-color);
-                span{
-                    font-size: 2rem;
+        .about-info{
+            display: flex;
+            
+            .info-title{
+                padding-right: 1rem;
+                p{
+                    font-weight: 1000;
                 }
             }
-        .paragraph{
-            padding: 1rem 0;
-        }
+            
         }
     }
+    .views{
+        display: grid;
+        width: 100%;
+        @media screen and (max-width:650px){
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
 `;
 export default ImagConocenos;
