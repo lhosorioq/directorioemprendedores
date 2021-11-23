@@ -2,6 +2,8 @@ import React from 'react'
 import LoginComp from '../components/LoginComp';
 import Axios from 'axios';
 import Swal from 'sweetalert2';
+import Title from '../components/Title';
+import { Container } from 'react-bootstrap';
 
 function LoginEmprendedorView() {
 
@@ -41,9 +43,13 @@ function LoginEmprendedorView() {
 
 
     return (
-        <>
-            <LoginComp tittle="Login Emprendedor" login={loginEmprendedor} registro='block' />
-        </>
+        <Container>
+            <Title title={'Login Emprendedores'} span={'Login Emprendedores'} />
+            <LoginComp
+                login={loginEmprendedor}
+                registro="block"
+            />
+        </Container>
     );
 }
 

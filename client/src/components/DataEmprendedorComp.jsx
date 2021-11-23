@@ -11,7 +11,6 @@ import {
     Container,
     FormControl,
     InputGroup,
-    FormCheck,
 } from 'react-bootstrap';
 import * as Yup from 'yup';
 import Icon from './Icons';
@@ -21,83 +20,22 @@ import { Categorias, Departamentos, Ciudades } from '../libs/search.lib';
 const DisplayingErrorMessagesSchema = Yup.object().shape({
     nombre: Yup.string()
         .min(2, 'Nombre muy corto!')
-        .max(40, 'Nombre muy largo!')
-        .required('Campo Requerido'),
-    mail: Yup.string().email('Invalid email').required('Campo Requerido'),
+        .max(40, 'Nombre muy largo!'),
+    mail: Yup.string().email('Invalid email'),
     telefono: Yup.number()
         .min(0, 'Numero muy corto!')
-        .max(9999999999999, 'Numero muy largo!')
-        .required('Campo Requerido'),
+        .max(9999999999999, 'Numero muy largo!'),
     password: Yup.string()
         .min(8, 'Constraseña muy corta!')
-        .max(20, 'Contraseña muy larga!')
-        .required('Campo Requerido'),
-    actividad: Yup.string().required('Campo Requerido'),
+        .max(20, 'Contraseña muy larga!'),
+    actividad: Yup.string(),
     direccion: Yup.string()
         .min(3, 'Direccion muy corta!')
-        .max(20, 'Direccion muy largo!')
-        .required('Campo Requerido'),
+        .max(40, 'Direccion muy largo!'),
     msg_description: Yup.string()
         .min(10, 'Mensaje muy corto!')
-        .max(500, 'Mensaje muy largo!')
-        .required('Campo Requerido'),
+        .max(500, 'Mensaje muy largo!'),
 });
-
-const carga = async (values, file, departamento, ciudad) => {
-    const {
-        nombre,
-        telefono,
-        mail,
-        password,
-        actividad,
-        direccion,
-        msg_description,
-    } = values;
-
-    const data = new FormData();
-    data.append('img', file);
-    data.append('nombre', nombre);
-    data.append('telefono', telefono);
-    data.append('mail', mail);
-    data.append('password', password);
-    data.append('actividad', actividad);
-    data.append('direccion', direccion);
-    data.append('msg_description', msg_description);
-    data.append('departamento', departamento);
-    data.append('ciudad', ciudad);
-
-    await Axios.post('emprendedor/create', data)
-        .then((response) => {
-            
-            const auth = response.data.auth;
-            if (!auth) {
-                Swal.fire({
-                    icon: 'error',
-                    title: response.data.mensaje,
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-            } else {
-                console.log(response);
-                const token = response.data.token;
-                const id = response.data.id;
-                sessionStorage.setItem('token', token);
-                sessionStorage.setItem('id', id);
-                window.location.href = '/emprendedor'; //pendiente ruta de pagina a la que pasara despues de login
-
-                Swal.fire({
-                    icon: 'success',
-                    title: response.data.mensaje,
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    return 'emprendedores';
-};
 
 // Creacion de options para selects
 const options = (item, i) => (
@@ -106,32 +44,89 @@ const options = (item, i) => (
     </option>
 );
 
-export const RegistroComp = () => {
+const DataEmprendedorComp = (props) => {
+    const { emprendedor, loadEmprendedor, url } = props;
     const [file, setFile] = useState({ name: '' });
-    const [departamento, setDepartamento] = useState('Departamentos');
-    const [ciudad, setCiudad] = useState('Ciudades');
+    const [departamento, setDepartamento] = useState(emprendedor.departamento);
+    const [ciudad, setCiudad] = useState(emprendedor.ciudad);
+
+    const carga = async (values) => {
+        const {
+            nombre,
+            telefono,
+            mail,
+            password,
+            actividad,
+            direccion,
+            msg_description,
+        } = values;
+
+        const data = new FormData();
+        data.append('img', file);
+        data.append('nombre', nombre);
+        data.append('telefono', telefono);
+        data.append('mail', mail);
+        data.append('password', password);
+        data.append('actividad', actividad);
+        data.append('direccion', direccion);
+        data.append('msg_description', msg_description);
+        data.append('departamento', departamento);
+        data.append('ciudad', ciudad);
+
+        const token = 'Bearer ' + sessionStorage.getItem('token');
+        const id = sessionStorage.getItem('id');
+
+        await Axios.put(`/emprendedor/update/${id}`, data, {
+            headers: { Authorization: token },
+        })
+            .then((response) => {
+                const auth = response.data.auth;
+                if (!auth) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: response.data.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: response.data.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+
+                    loadEmprendedor();
+                    url();
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        return 'emprendedores';
+    };
+
     return (
         <Container>
             <Formik
                 initialValues={{
-                    nombre: '',
-                    mail: '',
-                    telefono: '',
+                    nombre: emprendedor.nombre,
+                    mail: emprendedor.mail,
+                    telefono: emprendedor.telefono,
                     password: '',
-                    actividad: '',
-                    direccion: '',
-                    msg_description: '',
-                    terms: false,
+                    actividad: emprendedor.actividad,
+                    direccion: emprendedor.direccion,
+                    msg_description: emprendedor.msg_description,
                 }}
                 validationSchema={DisplayingErrorMessagesSchema}
-                onSubmit={(values) => carga(values, file, departamento, ciudad)}
+                onSubmit={(values) => carga(values)}
             >
                 {({ errors, touched }) => (
                     <Form>
                         <Row className="mb-3">
                             <FormGroup
                                 as={Col}
-                                md="4"
+                                md="6"
                                 controlId="form1"
                                 className="position-relative"
                             >
@@ -148,7 +143,7 @@ export const RegistroComp = () => {
                             </FormGroup>
                             <FormGroup
                                 as={Col}
-                                md="4"
+                                md="6"
                                 controlId="form2"
                                 className="position-relative"
                             >
@@ -163,9 +158,11 @@ export const RegistroComp = () => {
                                     <div>{errors.mail}</div>
                                 )}
                             </FormGroup>
+                        </Row>
+                        <Row>
                             <FormGroup
                                 as={Col}
-                                md="4"
+                                md="6"
                                 controlId="form3"
                                 className="position-relative"
                             >
@@ -180,11 +177,9 @@ export const RegistroComp = () => {
                                     <div>{errors.telefono}</div>
                                 )}
                             </FormGroup>
-                        </Row>
-                        <Row className="mb-3">
                             <FormGroup
                                 as={Col}
-                                md="4"
+                                md="6"
                                 controlId="form4"
                                 className="position-relative"
                             >
@@ -199,9 +194,11 @@ export const RegistroComp = () => {
                                     <div>{errors.password}</div>
                                 )}
                             </FormGroup>
+                        </Row>
+                        <Row className="mb-3">
                             <FormGroup
                                 as={Col}
-                                md="4"
+                                md="6"
                                 controlId="form5"
                                 className="position-relative"
                                 required
@@ -213,6 +210,7 @@ export const RegistroComp = () => {
                                     className="form-control"
                                     type="text"
                                     placeholder="Departamentos"
+                                    defaultValue={departamento.toUpperCase()}
                                     onChange={(e) =>
                                         setDepartamento(e.target.value)
                                     }
@@ -230,7 +228,7 @@ export const RegistroComp = () => {
                             </FormGroup>
                             <FormGroup
                                 as={Col}
-                                md="4"
+                                md="6"
                                 controlId="form6"
                                 className="position-relative"
                                 required
@@ -242,10 +240,13 @@ export const RegistroComp = () => {
                                     className="form-control"
                                     type="text"
                                     placeholder="Ciudades"
+                                    defaultValue={ciudad.toUpperCase()}
                                     onChange={(e) => setCiudad(e.target.value)}
                                 >
                                     {Ciudades[
-                                        Departamentos.indexOf(departamento)
+                                        Departamentos.indexOf(
+                                            departamento.toUpperCase()
+                                        )
                                     ].map((item, i) => options(item, i))}
                                 </Field>
                                 {touched.ciudad && errors.ciudad && (
@@ -256,7 +257,7 @@ export const RegistroComp = () => {
                         <Row className="mb-3">
                             <FormGroup
                                 as={Col}
-                                md="4"
+                                md="6"
                                 controlId="form7"
                                 className="position-relative"
                             >
@@ -273,7 +274,7 @@ export const RegistroComp = () => {
                             </FormGroup>
                             <FormGroup
                                 as={Col}
-                                md="4"
+                                md="6"
                                 controlId="form8"
                                 className="position-relative"
                             >
@@ -293,9 +294,11 @@ export const RegistroComp = () => {
                                     <div>{errors.actividad}</div>
                                 )}
                             </FormGroup>
+                        </Row>
+                        <Row>
                             <FormGroup
                                 as={Col}
-                                md="4"
+                                md="12"
                                 controlId="form9"
                                 className="position-relative"
                                 required
@@ -318,12 +321,6 @@ export const RegistroComp = () => {
                                                 placeholder={file.name}
                                                 aria-label="file"
                                                 aria-describedby="basic-addon1"
-                                                // value={() => file.name}
-                                                required={
-                                                    file.name === ''
-                                                        ? true
-                                                        : false
-                                                }
                                             />
                                         </InputGroup>
                                     </InputFiles>
@@ -354,22 +351,6 @@ export const RegistroComp = () => {
                                     )}
                             </FormGroup>
                         </Row>
-                        <Row className="mb-3">
-                            <FormGroup
-                                as={Col}
-                                md="4"
-                                controlId="form11"
-                                className="position-relative"
-                            >
-                                <FormCheck
-                                    name="terms"
-                                    label="Aceptar terminos y condiciones"
-                                    required
-                                    feedbackType="invalid"
-                                    feedbackTooltip
-                                />
-                            </FormGroup>
-                        </Row>
                         <Row>
                             <Col
                                 md={{ span: 4, offset: 8 }}
@@ -380,7 +361,7 @@ export const RegistroComp = () => {
                                     type="submit"
                                     size="lg"
                                 >
-                                    Registrar
+                                    Guardar
                                 </Button>
                             </Col>
                         </Row>
@@ -390,3 +371,5 @@ export const RegistroComp = () => {
         </Container>
     );
 };
+
+export default DataEmprendedorComp;

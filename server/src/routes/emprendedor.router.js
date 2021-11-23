@@ -7,6 +7,7 @@ import {
     logoutEmprendedor,
     viewImgEmprendedor,
     getEmprededoresAll,
+    deleteEmprendedor,
 } from '../controllers/emprendedor.controller';
 import { verifyToken } from '../lib/VerifyToken';
 
@@ -30,7 +31,15 @@ router.get('/all', getEmprededoresAll);
 router.post('/login', getEmprendedorMailPass);
 
 // Actualizar emprendedor
-router.put('/update/:id', verifyToken, updateEmprendedor);
+router.put(
+    '/update/:id',
+    upload.single('img'),
+    verifyToken,
+    updateEmprendedor
+);
+
+// Eliminar emprendedor
+router.delete('/delete/:id', verifyToken, deleteEmprendedor);
 
 // Logout Emprendedor
 router.post('/logout', verifyToken, logoutEmprendedor);

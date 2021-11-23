@@ -35,7 +35,6 @@ function SearchComp(props) {
     const loadCiudad = async (event) => {
         setDepartamento(event);
         setCiudad(Ciudades[await Departamentos.indexOf(departamento)][0]);
-        console.log(actividad, departamento, ciudad);
     };
 
     // Creacion de options para selects

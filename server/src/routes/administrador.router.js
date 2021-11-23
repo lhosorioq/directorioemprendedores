@@ -11,6 +11,7 @@ import {
     deleteEmprendedor,
 } from '../controllers/administrador.controller';
 import { verifyToken } from '../lib/VerifyToken';
+import { upload } from '../lib/ImageMulter';
 
 const router = Router();
 
@@ -36,7 +37,12 @@ router.delete('/delete/:id', verifyToken, deleteAdmin);
 router.get('/findemprendedores', verifyToken, getEmprendedores);
 
 // Actualiza emprendedor
-router.put('/updateemprendedor/:id', verifyToken, updateEmprendedores);
+router.put(
+    '/updateemprendedor/:id',
+    upload.single('img'),
+    verifyToken,
+    updateEmprendedores
+);
 
 // Elimina emprendedor
 router.delete('/deleteemprendedor/:id', verifyToken, deleteEmprendedor);

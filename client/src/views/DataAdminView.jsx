@@ -5,7 +5,7 @@ import TablaEmprendedoresComp from '../components/TablaEmprendedoresComp';
 function AdminEmprendedoresView() {
     const [key, setKey] = useState('emprendedores');
     return (
-        <Container>
+        <Container> 
             <Tabs
                 id="controlled-tab-example"
                 activeKey={key}

@@ -46,6 +46,12 @@ function HomeView(props) {
                                         </Card.Text>
                                         <Card.Text>
                                             {' '}
+                                            Email: {
+                                                emprendedor.mail
+                                            }{' '}
+                                        </Card.Text>
+                                        <Card.Text>
+                                            {' '}
                                             Direccion: {
                                                 emprendedor.direccion
                                             }{' '}

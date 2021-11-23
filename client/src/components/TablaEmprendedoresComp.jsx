@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Axios from 'axios';
-import { Table, Button, Modal } from 'react-bootstrap';
+import { Table, Button, Modal, Row, Col } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-import SignupComp from './UpdateEmprendedorComp';
+import DataEmprendedorComp from './DataEmprendedorComp';
 
 function TablaEmprendedoresComp() {
     const [emprendedores, setEmprendedores] = useState(null);
     const usuarioEditar = useRef({});
+    const visible = useRef(false);
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
 
@@ -24,7 +25,6 @@ function TablaEmprendedoresComp() {
         'Telefono',
         'Direccion',
         'Ciudad',
-        'Departamento',
         'visible',
     ];
 
@@ -63,9 +63,63 @@ function TablaEmprendedoresComp() {
         return emprendedores;
     };
 
+    const carga = async (id) => {
+
+        const data = new FormData();
+        data.append('img', '');
+        data.append('nombre', '');
+        data.append('telefono', '');
+        data.append('mail', '');
+        data.append('password', '');
+        data.append('actividad', '');
+        data.append('direccion', '');
+        data.append('msg_description', '');
+        data.append('departamento', '');
+        data.append('ciudad', '');
+        data.append('visible', visible.current);
+
+        const token = 'Bearer ' + sessionStorage.getItem('token');
+
+        await Axios.put(`/admin/updateemprendedor/${id}`, data, {
+            headers: { Authorization: token },
+        })
+            .then((response) => {
+                const auth = response.data.auth;
+                if (!auth) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: response.data.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: response.data.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    loadEmprendedores(params);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const cambiarVisible = (id, v) => {
+        visible.current = !v;
+        console.log(visible.current)
+        carga(id);
+    };
+
     const deleteEmprendedor = async () => {
+        const token = 'Bearer ' + sessionStorage.getItem('token');
         const id = usuarioEditar.current._id;
-        await Axios.delete(`/admin/deleteemprendedor/${id}`)
+        await Axios.delete(`/admin/deleteemprendedor/${id}`, {
+            headers: { Authorization: token },
+        })
             .then((response) => {
                 alerta(response.data.mensaje, 'success');
             })
@@ -104,8 +158,23 @@ function TablaEmprendedoresComp() {
                                     <td>{emprendedor.telefono} </td>
                                     <td>{emprendedor.direccion} </td>
                                     <td>{emprendedor.ciudad} </td>
-                                    <td>{emprendedor.departamento} </td>
-                                    <td>{emprendedor.visible ? 'Si' : 'No'}</td>
+                                    <td>
+                                        <Row>
+                                            <i
+                                                as="button"
+                                                className="fas fa-check-circle"
+                                                onClick={() =>
+                                                    cambiarVisible(emprendedor._id, emprendedor.visible)
+                                                }
+                                            ></i>
+
+                                            <Col>
+                                                {emprendedor.visible
+                                                    ? 'Si'
+                                                    : 'No'}
+                                            </Col>
+                                        </Row>
+                                    </td>
                                     <td>
                                         <Button
                                             className="m-1"
@@ -153,12 +222,20 @@ function TablaEmprendedoresComp() {
                     </Modal.Footer>
                 </Modal>
                 {/* Editar */}
-                <Modal size="lg" show={show2} onHide={handleClose} style={{height: '600px'}} >
+                <Modal
+                    size="lg"
+                    show={show2}
+                    onHide={handleClose}
+                    style={{ height: '600px' }}
+                >
                     <Modal.Header closeButton>
                         <Modal.Title>Editar Emprendedor</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <SignupComp item={usuarioEditar.current} />
+                        {/* <SignupComp item={usuarioEditar.current} /> */}
+                        <DataEmprendedorComp
+                            emprendedor={usuarioEditar.current}
+                        />
                     </Modal.Body>
                 </Modal>
             </>

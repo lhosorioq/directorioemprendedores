@@ -10,6 +10,7 @@ export const createAdmin = async (req, res) => {
         const admin = new Admin({
             user,
             password,
+            rol: 'admin',
         });
 
         const name = await Admin.findOne({ user });
@@ -33,6 +34,7 @@ export const createAdmin = async (req, res) => {
                 auth: true,
                 id: admin._id,
                 token,
+                rol: admin.rol,
             });
         }
     } catch (error) {
@@ -71,11 +73,13 @@ export const getAdminUserPass = async (req, res) => {
     const token = jwt.sign({ id: admin._id }, config.secret, {
         expiresIn: 60 * 60 * 2,
     });
+
     res.status(200).json({
         auth: true,
         mensaje: 'Autenticacion correcta',
         id: admin._id,
         token,
+        rol: admin.rol,
     });
 };
 
@@ -193,27 +197,114 @@ export const getEmprendedores = async (req, res) => {
 
 // Modificar emprendedores
 export const updateEmprendedores = async (req, res) => {
+    console.log(req.body);
     const _id = req.params.id;
-    const body = req.body;
-    try {
-        const response = await Emprendedor.findByIdAndUpdate(
-            { _id },
-            body
-        ).select('-password');
+    const {
+        nombre,
+        mail,
+        password,
+        direccion,
+        telefono,
+        actividad,
+        msg_description,
+        departamento,
+        ciudad,
+        visible,
+    } = req.body;
 
-        if (!response) {
-            return res.status(404).json({
-                mensaje: 'No se encontro emprendedor',
-            });
-        }
-        res.status(200).json({
-            mensaje: 'Emprendedor modificado satisfactoriamente',
-            response,
+    let body = {};
+
+    if (req.file) {
+        const data = req.file.buffer;
+        // const data = req.body.img; // Postman
+        const contentType = req.file.mimetype;
+        // const contentType = req.body.img.type; //Postman
+        const img = { data, contentType };
+
+        const emprendedor = new Emprendedor({
+            nombre,
+            mail,
+            password,
+            direccion,
+            departamento,
+            ciudad,
+            telefono,
+            actividad,
+            msg_description,
+            visible,
+            img,
         });
-    } catch (error) {
-        res.status(401).json({
+
+        if (emprendedor.nombre !== '') body['nombre'] = emprendedor.nombre;
+        if (emprendedor.mail !== '') body['mail'] = emprendedor.mail;
+        if (emprendedor.password !== '') {
+            // Encryptando contraseña
+            emprendedor.password = await emprendedor.encryptPassword(password);
+            body['password'] = emprendedor.password;
+        }
+        if (emprendedor.ciudad !== '') body['ciudad'] = emprendedor.ciudad;
+        if (emprendedor.departamento !== '')
+            body['departamento'] = emprendedor.departamento;
+        if (emprendedor.direccion !== '')
+            body['direccion'] = emprendedor.direccion;
+        if (emprendedor.telefono !== '')
+            body['telefono'] = emprendedor.telefono;
+        if (emprendedor.actividad !== '')
+            body['actividad'] = emprendedor.actividad;
+        if (emprendedor.msg_description !== '')
+            body['msg_description'] = emprendedor.msg_description;
+        body['img'] = emprendedor.img;
+        
+    } else {
+        const emprendedor = new Emprendedor({
+            nombre,
+            mail,
+            password,
+            direccion,
+            departamento,
+            ciudad,
+            telefono,
+            actividad,
+            msg_description,
+            visible,
+        });
+
+        if (emprendedor.nombre !== '') body['nombre'] = emprendedor.nombre;
+        if (emprendedor.mail !== '') body['mail'] = emprendedor.mail;
+        if (emprendedor.password !== '') {
+            // Encryptando contraseña
+            emprendedor.password = await emprendedor.encryptPassword(password);
+            body['password'] = emprendedor.password;
+        }
+        if (emprendedor.ciudad !== '') body['ciudad'] = emprendedor.ciudad;
+        if (emprendedor.departamento !== '')
+            body['departamento'] = emprendedor.departamento;
+        if (emprendedor.direccion !== '')
+            body['direccion'] = emprendedor.direccion;
+        if (emprendedor.telefono !== '')
+            body['telefono'] = emprendedor.telefono;
+        if (emprendedor.actividad !== '')
+            body['actividad'] = emprendedor.actividad;
+        if (emprendedor.msg_description !== '')
+            body['msg_description'] = emprendedor.msg_description;
+        
+        body['visible'] = emprendedor.visible;
+    }
+
+    try {
+        const registro = await Emprendedor.findByIdAndUpdate(_id, body, {
+            new: true,
+        });
+        res.status(200).json({
+            auth: true,
+            id: registro._id,
+            mensaje: 'Actualizacion Exitosa',
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({
             mensaje: 'Ocurrio un error',
-            error,
+            err,
         });
     }
 };

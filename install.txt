@@ -11,6 +11,10 @@ Seguido..
 Entre en la carpeta "client" en una consola command prompt y ejecute:
 yarn install
 yarn add axios
+yarn add styled-components
+yarn add sweetalert2
+yarn add formik
+yarn add react-input-files
 
 Luego en la misma carpeta ejecute:
 yarn start

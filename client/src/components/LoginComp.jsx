@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { Container, FormLabel } from 'react-bootstrap';
 
 function LoginComp(props) {
-    const { tittle, login, registro } = props;
+    const { login, registro } = props;
 
     const loginSchema = Yup.object().shape({
         password: Yup.string()
@@ -28,7 +28,6 @@ function LoginComp(props) {
             <Container
                 style={{ width: '300px', height: '400px', marginTop: '100px', marginBottom: '300px' }}
             >
-                <h1 style={{ textAlign: 'center' }}>{tittle}</h1>
                 <Formik
                     initialValues={{ email: '', password: '' }}
                     validationSchema={loginSchema}

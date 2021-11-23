@@ -2,6 +2,8 @@ import React from 'react';
 import LoginComp from '../components/LoginComp';
 import Axios from 'axios';
 import Swal from 'sweetalert2';
+import Title from '../components/Title';
+import { Container } from 'react-bootstrap';
 
 function LoginAdminView() {
 
@@ -20,8 +22,10 @@ function LoginAdminView() {
                 } else {
                     const token = respuesta.data.token;
                     const id = respuesta.data.id;
+                    const rol = respuesta.data.rol;
                     sessionStorage.setItem('token', token);
                     sessionStorage.setItem('id', id);
+                    sessionStorage.setItem('rol', rol);
 
                     Swal.fire({
                         icon: 'success',
@@ -38,13 +42,14 @@ function LoginAdminView() {
     };
 
     return (
-        <>
+        <Container>
+            <Title title={'Login Administrador'} span={'Login Administrador'} />
             <LoginComp
                 tittle="Login Administrador"
                 login={loginAdmin}
                 registro="none"
             />
-        </>
+        </Container>
     );
 }
 
