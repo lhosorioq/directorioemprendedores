@@ -197,7 +197,6 @@ export const getEmprendedores = async (req, res) => {
 
 // Modificar emprendedores
 export const updateEmprendedores = async (req, res) => {
-    console.log(req.body);
     const _id = req.params.id;
     const {
         nombre,
