@@ -28,7 +28,7 @@ router.post('/login', getAdminUserPass);
 router.get('/findid/:id', verifyToken, findAdminId);
 
 // Actualiza Administrador
-router.put('/ubdate/:id', verifyToken, updateAdmin);
+router.put('/update/:id', verifyToken, updateAdmin);
 
 // Elimina un Administrador
 router.delete('/delete/:id', verifyToken, deleteAdmin);

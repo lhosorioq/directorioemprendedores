@@ -4,12 +4,16 @@ import {
     viewImgEmprendedor,
     getEmprededoresFilter,
     getEmprededoresVisibles,
+    terminos,
 } from '../controllers/usuarios.controller';
 
 const router = Router();
 
 // Consultar todos los emprendedores
 router.get('/', getEmprededoresAll);
+
+// Ver terminos y condiciones
+router.get('/terminos', terminos);
 
 // Consultar emprendedores visibles
 router.get('/visible', getEmprededoresVisibles);

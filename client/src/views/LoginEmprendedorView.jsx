@@ -4,6 +4,7 @@ import Axios from 'axios';
 import Swal from 'sweetalert2';
 import Title from '../components/Title';
 import { Container } from 'react-bootstrap';
+import { MainLayout } from '../styles/Layouts';
 
 function LoginEmprendedorView() {
 
@@ -43,13 +44,15 @@ function LoginEmprendedorView() {
 
 
     return (
-        <Container>
-            <Title title={'Login Emprendedores'} span={'Login Emprendedores'} />
-            <LoginComp
-                login={loginEmprendedor}
-                registro="block"
-            />
-        </Container>
+        <MainLayout>
+            <Container>
+                <Title
+                    title={'Login Emprendedores'}
+                    span={'Login Emprendedores'}
+                />
+                <LoginComp login={loginEmprendedor} registro="block" />
+            </Container>
+        </MainLayout>
     );
 }
 

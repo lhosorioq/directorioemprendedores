@@ -6,8 +6,9 @@ import config from '../config';
 // Crear administrador
 export const createAdmin = async (req, res) => {
     try {
-        const { user, password } = req.body;
+        const { nombre, user, password } = req.body;
         const admin = new Admin({
+            nombre,
             user,
             password,
             rol: 'admin',
@@ -35,6 +36,7 @@ export const createAdmin = async (req, res) => {
                 id: admin._id,
                 token,
                 rol: admin.rol,
+                mensaje: 'Se creo administrador correctamente',
             });
         }
     } catch (error) {
@@ -86,10 +88,10 @@ export const getAdminUserPass = async (req, res) => {
 // Consultar administradores
 export const getAdmin = async (req, res) => {
     try {
-        const response = await Admin.find();
+        const admins = await Admin.find();
         res.status(200).json({
             mensaje: 'Se encontraron administradores',
-            response,
+            admins,
         });
     } catch (error) {
         return res.status(404).json({
@@ -119,18 +121,21 @@ export const findAdminId = async (req, res) => {
 // Modificar administrador
 export const updateAdmin = async (req, res) => {
     const _id = req.params.id;
-    const { nombre, password } = req.body;
+    const { nombre, user, password } = req.body;
 
     const admin = new Admin({
         nombre,
+        user,
         password,
     });
 
     // Se encripta contraseña
-    admin.password = admin.encryptPassword(password);
+    admin.password = await admin.encryptPassword(password);
+
+    const data = {nombre:admin.nombre, user:admin.user, password:admin.password}
 
     try {
-        const response = await Admin.findByIdAndUpdate({ _id }, admin, {
+        const response = await Admin.findByIdAndUpdate({ _id }, data, {
             new: true,
         }).select('-password');
         if (!response) {
@@ -144,6 +149,7 @@ export const updateAdmin = async (req, res) => {
             response,
         });
     } catch (error) {
+        console.log(error);
         return res.status(404).json({
             mensaje: 'Ocurrio un error',
             error,
@@ -163,8 +169,7 @@ export const deleteAdmin = async (req, res) => {
             });
         }
         res.status(200).json({
-            mensaje: 'Administrador elimino correctamente',
-            response,
+            mensaje: 'Administrador eliminado correctamente',
         });
     } catch (error) {
         return res.status(404).json({
@@ -197,7 +202,6 @@ export const getEmprendedores = async (req, res) => {
 
 // Modificar emprendedores
 export const updateEmprendedores = async (req, res) => {
-    console.log(req.body);
     const _id = req.params.id;
     const {
         nombre,
@@ -254,7 +258,6 @@ export const updateEmprendedores = async (req, res) => {
         if (emprendedor.msg_description !== '')
             body['msg_description'] = emprendedor.msg_description;
         body['img'] = emprendedor.img;
-        
     } else {
         const emprendedor = new Emprendedor({
             nombre,
@@ -287,7 +290,7 @@ export const updateEmprendedores = async (req, res) => {
             body['actividad'] = emprendedor.actividad;
         if (emprendedor.msg_description !== '')
             body['msg_description'] = emprendedor.msg_description;
-        
+
         body['visible'] = emprendedor.visible;
     }
 
@@ -326,4 +329,6 @@ export const deleteEmprendedor = async (req, res) => {
             response,
         });
     } catch (error) {}
+
+
 };

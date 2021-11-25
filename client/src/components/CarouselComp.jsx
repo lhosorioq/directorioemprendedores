@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
+import {URL} from '../libs/url'
 
 function CarouselComp(props) {
     const { data } = props;
 
-    const uri = `http://localhost:4000/user/`;
+    const uri = URL + `/user/`;
 
     const [emprendedores, setEmprendedores] = useState([]);
 

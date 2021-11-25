@@ -6,7 +6,9 @@ export const Categorias = [
     'Comidas Rapidas',
     'Turismo',
     'Hoteles',
-    'Carnicerias'
+    'Carnicerias',
+    'Ferreterias',
+    'Diseño e Impresion'
 ];
 
 

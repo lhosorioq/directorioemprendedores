@@ -23,7 +23,6 @@ function TablaEmprendedoresComp() {
         'Email',
         'Actividad',
         'Telefono',
-        'Direccion',
         'Ciudad',
         'visible',
     ];
@@ -156,15 +155,20 @@ function TablaEmprendedoresComp() {
                                     <td> {emprendedor.mail} </td>
                                     <td>{emprendedor.actividad} </td>
                                     <td>{emprendedor.telefono} </td>
-                                    <td>{emprendedor.direccion} </td>
                                     <td>{emprendedor.ciudad} </td>
                                     <td>
                                         <Row>
                                             <i
                                                 as="button"
+                                                style={{
+                                                    cursor: 'pointer',
+                                                }}
                                                 className="fas fa-check-circle"
                                                 onClick={() =>
-                                                    cambiarVisible(emprendedor._id, emprendedor.visible)
+                                                    cambiarVisible(
+                                                        emprendedor._id,
+                                                        emprendedor.visible
+                                                    )
                                                 }
                                             ></i>
 
@@ -232,9 +236,9 @@ function TablaEmprendedoresComp() {
                         <Modal.Title>Editar Emprendedor</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        {/* <SignupComp item={usuarioEditar.current} /> */}
                         <DataEmprendedorComp
                             emprendedor={usuarioEditar.current}
+                            loadEmprendedor={() => loadEmprendedores(params)}
                         />
                     </Modal.Body>
                 </Modal>
