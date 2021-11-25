@@ -12,11 +12,16 @@ import {
     FormControl,
     InputGroup,
     FormCheck,
+    Modal,
+    ModalBody,
+    Card,
+    CardImg,
 } from 'react-bootstrap';
 import * as Yup from 'yup';
 import Icon from './Icons';
 import InputFiles from 'react-input-files';
 import { Categorias, Departamentos, Ciudades } from '../libs/search.lib';
+import { URL } from '../libs/url';
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
     nombre: Yup.string()
@@ -35,7 +40,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
     actividad: Yup.string().required('Campo Requerido'),
     direccion: Yup.string()
         .min(3, 'Direccion muy corta!')
-        .max(20, 'Direccion muy largo!')
+        .max(40, 'Direccion muy largo!')
         .required('Campo Requerido'),
     msg_description: Yup.string()
         .min(10, 'Mensaje muy corto!')
@@ -68,7 +73,6 @@ const carga = async (values, file, departamento, ciudad) => {
 
     await Axios.post('emprendedor/create', data)
         .then((response) => {
-            
             const auth = response.data.auth;
             if (!auth) {
                 Swal.fire({
@@ -110,6 +114,13 @@ export const RegistroComp = () => {
     const [file, setFile] = useState({ name: '' });
     const [departamento, setDepartamento] = useState('Departamentos');
     const [ciudad, setCiudad] = useState('Ciudades');
+    const [show, setShow] = useState(false);
+
+    // Close modal
+    const handleClose = () => {
+        setShow(false);
+    };
+
     return (
         <Container>
             <Formik
@@ -371,6 +382,14 @@ export const RegistroComp = () => {
                             </FormGroup>
                         </Row>
                         <Row>
+                            <Col>
+                                <Button
+                                    variant="link"
+                                    onClick={() => setShow(true)}
+                                >
+                                    Ver terminos y condiciones
+                                </Button>
+                            </Col>
                             <Col
                                 md={{ span: 4, offset: 8 }}
                                 className="d-grid gap-2"
@@ -387,6 +406,22 @@ export const RegistroComp = () => {
                     </Form>
                 )}
             </Formik>
+            <Modal size="lg" show={show} onHide={handleClose}>
+                <ModalBody>
+                    <Card>
+                        <CardImg src={URL + '/user/terminos'}></CardImg>{' '}
+                    </Card>
+                    <Button
+                        as={Col}
+                        md={{ span: 4, offset: 8 }}
+                        variant="outline-primary"
+                        style={{ marginTop: '10px' }}
+                        onClick={handleClose}
+                    >
+                        Cerrar
+                    </Button>
+                </ModalBody>
+            </Modal>
         </Container>
     );
 };

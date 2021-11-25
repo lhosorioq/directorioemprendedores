@@ -26,7 +26,7 @@ function LoginComp(props) {
     return (
         <div>
             <Container
-                style={{ width: '300px', height: '400px', marginTop: '100px', marginBottom: '300px' }}
+                style={{ width: '300px', height: '200px', marginTop: '100px', marginBottom: '100px' }}
             >
                 <Formik
                     initialValues={{ email: '', password: '' }}

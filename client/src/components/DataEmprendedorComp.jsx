@@ -74,7 +74,7 @@ const DataEmprendedorComp = (props) => {
         data.append('ciudad', ciudad);
 
         const token = 'Bearer ' + sessionStorage.getItem('token');
-        const id = sessionStorage.getItem('id');
+        const id = emprendedor._id;
 
         await Axios.put(`/emprendedor/update/${id}`, data, {
             headers: { Authorization: token },

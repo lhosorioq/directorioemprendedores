@@ -1,6 +1,14 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import { Card, Col, Container, Row, ProgressBar,} from 'react-bootstrap';
+import {
+    Card,
+    Col,
+    Container,
+    Row,
+    ProgressBar,
+    Modal,
+    Button,
+} from 'react-bootstrap';
 import HeaderComp from '../components/HeaderComp';
 import DataEmprendedorComp from '../components/DataEmprendedorComp';
 import Title from '../components/Title';
@@ -8,11 +16,14 @@ import Swal from 'sweetalert2';
 
 function DataEmprendedorView() {
     const [emprendedor, setEmprendedor] = useState(null);
+    const [show, setShow] = useState(false);
     const id = sessionStorage.getItem('id');
-    const [url, setUrl] = useState(`http://localhost:4000/emprendedor/imagen/${id}`);
+    const [url, setUrl] = useState(
+        `http://localhost:4000/emprendedor/imagen/${id}`
+    );
 
     const reload = () => {
-        // window.location.reload() // Esto con el fin de que se actualice la imagen cunado es cambiada buscar otro metodo 
+        // window.location.reload() // Esto con el fin de que se actualice la imagen cunado es cambiada buscar otro metodo
         url === `http://localhost:4000/emprendedor/imagen/${id}`
             ? setUrl(`http://localhost:4000/user/${id}`)
             : setUrl(`http://localhost:4000/emprendedor/imagen/${id}`);
@@ -48,6 +59,10 @@ function DataEmprendedorView() {
         }
     };
 
+    const handleClose = () => {
+        setShow(false);
+    };
+
     const eliminar = async () => {
         const token = 'Bearer ' + sessionStorage.getItem('token');
         await Axios.delete(`/emprendedor/delete/${id}`, {
@@ -60,13 +75,13 @@ function DataEmprendedorView() {
                     showConfirmButton: false,
                     timer: 1500,
                 });
-                sessionStorage.clear()
-                window.location.href= '/'
+                sessionStorage.clear();
+                window.location.href = '/';
             })
             .catch((err) => {
                 console.log(err);
             });
-    }
+    };
 
     useEffect(() => {
         loadEmprendedor();
@@ -138,9 +153,32 @@ function DataEmprendedorView() {
                             className="d-grid gap-2"
                             style={{ marginBottom: '50px' }}
                         >
-                            <i className="fas fa-user-slash" onClick= {() => eliminar()}>{' '}Eliminar Cuenta</i>
+                            <i
+                                className="fas fa-user-slash"
+                                onClick={() => setShow(true)}
+                            >
+                                {' '}
+                                Eliminar Cuenta
+                            </i>
                         </Col>
                     </Row>
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Eliminar Emprendedor</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            Esta seguro que desea eliminar su cuenta de
+                            Emprendedor {emprendedor.nombre}
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="danger" onClick={() => eliminar()}>
+                                Eliminar
+                            </Button>
+                            <Button variant="primary" onClick={handleClose}>
+                                Cancelar
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </Container>
             </>
         );

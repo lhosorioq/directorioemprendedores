@@ -1,5 +1,5 @@
-import { json } from 'express';
 import Emprendedor from '../models/emprendedor.model';
+import path from 'path';
 
 // Consultar todos los emprendedores
 export const getEmprededoresAll = async (req, res) => {
@@ -72,4 +72,23 @@ export const viewImgEmprendedor = async (req, res) => {
             error,
         });
     }
+};
+
+// Terminos y condiciones 
+
+export const terminos = async (req, res) => {
+    const options = {
+        root: path.join(__dirname),
+    };
+
+    const fileName = 'TERMINOS_Y_CONDICIONES.png';
+    
+    res.sendFile(fileName, options, function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Sent:', fileName);
+        }
+    });
+
 };

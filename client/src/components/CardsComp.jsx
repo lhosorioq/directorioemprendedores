@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Container } from 'react-bootstrap';
+import {URL} from '../libs/url'
 
 function HomeView(props) {
     const { data } = props;
-    const uri = `http://localhost:4000/user/`;
+    const uri = URL + `/user/`;
     const [emprendedores, setEmprendedores] = useState(null);
 
     useEffect(() => {

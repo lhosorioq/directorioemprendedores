@@ -4,6 +4,7 @@ import Axios from 'axios';
 import Swal from 'sweetalert2';
 import Title from '../components/Title';
 import { Container } from 'react-bootstrap';
+import { MainLayout } from '../styles/Layouts';
 
 function LoginAdminView() {
 
@@ -42,14 +43,19 @@ function LoginAdminView() {
     };
 
     return (
-        <Container>
-            <Title title={'Login Administrador'} span={'Login Administrador'} />
-            <LoginComp
-                tittle="Login Administrador"
-                login={loginAdmin}
-                registro="none"
-            />
-        </Container>
+        <MainLayout>
+            <Container>
+                <Title
+                    title={'Login Administrador'}
+                    span={'Login Administrador'}
+                />
+                <LoginComp
+                    tittle="Login Administrador"
+                    login={loginAdmin}
+                    registro="none"
+                />
+            </Container>
+        </MainLayout>
     );
 }
 

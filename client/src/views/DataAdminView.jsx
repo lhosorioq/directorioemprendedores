@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs, Tab, Container} from 'react-bootstrap';
 import TablaEmprendedoresComp from '../components/TablaEmprendedoresComp';
+import TableAdministradoresCom from '../components/TableAdministradoresCom';
 
 function AdminEmprendedoresView() {
     const [key, setKey] = useState('emprendedores');
@@ -14,13 +15,9 @@ function AdminEmprendedoresView() {
             >
                 <Tab eventKey="emprendedores" title="Emprendedores">
                     <TablaEmprendedoresComp/>
-                    {/* <Sonnet /> clase ficticia hace referencia al vista que se va a mostrar */}
                 </Tab>
                 <Tab eventKey="administradores" title="Administradores">
-                    {/* <Sonnet /> */}
-                </Tab>
-                <Tab eventKey="contact" title="Contact">
-                    {/* <Sonnet /> */}
+                    <TableAdministradoresCom/>
                 </Tab>
             </Tabs>
         </Container>

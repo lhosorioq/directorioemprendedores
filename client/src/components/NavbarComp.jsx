@@ -36,9 +36,16 @@ export default function NavbarComp() {
                             <Nav.Link as={Link} to={'/contacto'}>
                                 Contacto
                             </Nav.Link>
-                            {sessionStorage.getItem('rol') ? <Nav.Link as={Link} to={'/admin/data'}>
-                                Administrador
-                            </Nav.Link> : null}
+                            {sessionStorage.getItem('rol') ? (
+                                <Nav.Link as={Link} to={'/admin/data'}>
+                                    Administrador
+                                </Nav.Link>
+                            ) : null}
+                            {sessionStorage.getItem('nombre') ? (
+                                <Nav.Link as={Link} to={'/emprendedor'}>
+                                    Emprendedor
+                                </Nav.Link>
+                            ) : null}
                         </Nav>
                         <Nav>
                             <Nav.Link as={Link} to={'/login'}>
@@ -48,7 +55,11 @@ export default function NavbarComp() {
                                 Registrate
                             </Nav.Link>
                             {sessionStorage.getItem('token') ? (
-                                <Nav.Link as={Link} onClick={() => salir()} to={''}>
+                                <Nav.Link
+                                    as={Link}
+                                    onClick={() => salir()}
+                                    to={''}
+                                >
                                     Salir
                                 </Nav.Link>
                             ) : null}

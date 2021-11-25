@@ -12,6 +12,7 @@ import LoginEmprendedorView from './views/LoginEmprendedorView';
 import DataEmprendedorView from './views/DataEmprendedorView';
 import DataAdminView from './views/DataAdminView';
 import FooterComp from './components/FooterComp';
+import { RoutePrivate } from './components/RoutePrivate';
 
 function App() {
     return (
@@ -30,21 +31,19 @@ function App() {
                 <Route path="/login" exact>
                     <LoginEmprendedorView />
                 </Route>
-                <Route path="/emprendedor" exact>
+                <RoutePrivate path="/emprendedor" exact>
                     <DataEmprendedorView />
-                </Route>
+                </RoutePrivate>
                 <Route path="/signup" exact>
                     <Registro />
                 </Route>
                 <Route path="/admin" exact>
                     <LoginAdminView />
                 </Route>
-                <Route path="/admin/data" exact>
+                <RoutePrivate path="/admin/data" exact>
                     <DataAdminView />
-                </Route>
-                <Route path="/logout" exact>
-                    
-                </Route>
+                </RoutePrivate>
+                <RoutePrivate path="/logout" exact></RoutePrivate>
             </Switch>
             <FooterComp />
         </Router>
