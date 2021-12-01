@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs, Tab, Container} from 'react-bootstrap';
-import TablaEmprendedoresComp from '../components/TablaEmprendedoresComp';
+// import TablaEmprendedoresComp from '../components/TablaEmprendedoresComp';
+import TablaEmprendedoresComp2 from '../components/TablaEmprendedoresComp2';
 import TableAdministradoresCom from '../components/TableAdministradoresCom';
 
 function AdminEmprendedoresView() {
@@ -14,7 +15,7 @@ function AdminEmprendedoresView() {
                 className="mb-3 mt-2"
             >
                 <Tab eventKey="emprendedores" title="Emprendedores">
-                    <TablaEmprendedoresComp/>
+                    <TablaEmprendedoresComp2/>
                 </Tab>
                 <Tab eventKey="administradores" title="Administradores">
                     <TableAdministradoresCom/>

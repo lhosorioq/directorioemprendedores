@@ -109,7 +109,6 @@ function TablaEmprendedoresComp() {
 
     const cambiarVisible = (id, v) => {
         visible.current = !v;
-        console.log(visible.current)
         carga(id);
     };
 
@@ -137,7 +136,7 @@ function TablaEmprendedoresComp() {
     if (emprendedores) {
         return (
             <>
-                <Table responsive>
+                <Table striped bordered hover responsive>
                     <thead>
                         <tr>
                             <th>#</th>
